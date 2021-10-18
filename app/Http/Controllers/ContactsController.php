@@ -50,13 +50,13 @@ class ContactsController extends Controller
         $inputs = $request->except('action');
             
             Contact::insert([
-            'fullname' => $inputs['lastname'] .= $inputs['firstname'],
-            'gender' => $inputs['gender'],
-            'email' => $inputs['email'],
-            'postcode' => $inputs['zip11'],
-            'address' => $inputs['addr11'],
-            'building_name' => $inputs['building_name'],
-            'opinion' => $inputs['opinion']
+            'fullname' => Session::get('lastname'). Session::get('firstname'),
+            'gender' => Session::get('gender'),
+            'email' => Session::get('email'),
+            'postcode' => Session::get('zip11'),
+            'address' => Session::get('addr11'),
+            'building_name' => Session::get('building_name'),
+            'opinion' => Session::get('opinion')
         ]);
         return redirect()->route('complete');
 
@@ -66,7 +66,7 @@ class ContactsController extends Controller
      *
      * @return RedirectResponse
      */
-    public function retunInput(): RedirectResponse
+    public function returnInput(): RedirectResponse
     {
         $inputs = [
             'lastname' => Session::pull('lastname'),
@@ -85,45 +85,64 @@ class ContactsController extends Controller
     {
         return view('complete');
     }
-    // public function index(Request $request)
-    // {
-        
-    //     return view ('search');
-    // }
+    public function index(Request $request)
+    {
+        $fullname = "";
+        $email = "";
+        $items = "";
+        $created_at ="";
+        $gender ="";
+        return view('search', compact('items','fullname','email', 'created_at', 'gender'));
+    }
     public function search(Request $request)
     {
         $query = Contact::query();
 
         $fullname = $request->input('fullname');
         $email = $request->input('email');
+        $created_at = Contact::get();
+        $gender = $request->input('gender');
 
         if(!empty($fullname)) {
             $query->where('fullname', 'like', '%'.$fullname.'%');
         }
         // 日付検索（開始日）
-        if (!empty($request->start_date)) {
-            $query->where('created_at', '>=', $request->start_date)->get();
+        if (!empty($request['form']) && !empty($request['until'])) {
+            $created_at = Contact::getDate($request['from'], $request['until']);
+            // $query->where('created_at', '%Y-%m-%d','LIKE', '%'.$created_at.'%');
+            // $query->where('created_at', '=', $created_at)->get();
+            // created_at', '%Y-%m-%d','LIKE', '%'.$date.'%'
         }
         // 日付検索（終了日）
-        if (!empty($request->end_date)) {
-            $query->where('created_at', '<=', $request->end_date)->get();
-        }
+        // if (!empty($request->end_date)) {
+        //     $query->where('created_at', '<=', $request->end_date)->get();
+        // }
         if (!empty($email)) {
             $query->where('email', 'like', '%' . $email . '%');
+        }
+
+        if(!empty($gender)) {
+            $query->where('gender', $gender);
         }
 
         if($request->has('fullname')) {
             $query->where('fullname', 'like', '%' . $request->get('fullname') . '%');
         }
 
-        foreach ($request->only(['fullname', 'email','created_at']) as $key => $value) {
+        foreach ($request->only(['fullname', 'email','created_at','gender']) as $key => $value) {
             $query->where($key, 'like', '%' . $value . '%');
         }
 
-        $items = $query->get();
+        $items = $query->get()->paginate(10);
+        // $items = $query->get()->paginate(10);
+        $items = Contact::paginate(10);
 
-        return view('search', compact('items','fullname','email'));
+        return view('search', compact('items','fullname','created_at','email','gender'));
         // ->with(['fullname' => $fullname, 'email' => $email]);
     }
-
+    public function delete(Request $request)
+    {
+        $item = Contact::find($request->id)->delete();
+        return redirect('/search');
+    }
 }

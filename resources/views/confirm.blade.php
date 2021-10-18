@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="css/confirm.css">
   <title>内容確認</title>
 </head>
 <body>
@@ -12,9 +12,10 @@
   <div class="contact-form">
     <form method="post" action="process">
       @csrf
-      <table>
+      <div class="box_con">
+      <table class="formTable">
         <tr>
-          <th>お名前※</th>
+          <th>お名前</th>
           @if(isset($inputs['lastname']))
           <td>{{ $inputs['lastname'] }}{{$inputs['firstname']}}</td>
           @endif
@@ -22,7 +23,7 @@
 
 
         <tr>
-          <th>性別※</th>
+          <th>性別</th>
             <td>
               @if ($inputs['gender'] == 1)
                   男性
@@ -33,18 +34,18 @@
         </tr>
 
         <tr>
-          <th>メールアドレス※</th>
+          <th>メールアドレス</th>
           <td>{{$inputs['email']}}</td>
         </tr>
 
         <tr>
-          <th><label>郵便番号※</label></th>
+          <th><label>郵便番号</label></th>
           <td>〒{{ $inputs['zip11'] }}</td>
           <input type="hidden" name="zip11" value="{{ $inputs['zip11'] }}">
         </tr>
 
         <tr>
-          <th><label>住所※</label></th>
+          <th><label>住所</label></th>
           <td>{{ $inputs['addr11'] }}</td>
           <input type="hidden" name="addr11" value="{{ $inputs['addr11'] }}">
         </tr>
@@ -56,12 +57,14 @@
         </tr>
 
         <tr>
-          <th>ご意見※</th>
+          <th>ご意見</th>
           <td>{{$inputs['opinion']}}</td>
         </tr>
       </table>
-      <button name="action" type="submit" value="submit">送信</button>
-      <a href="{{ route('return') }}">修正する</a>
+      <div class="center-block">
+        <button name="action" type="submit" value="submit">送信</button>
+        <a href="{{ route('return') }}">修正する</a>
+      </div>
     </form>
   </div>
 </body>

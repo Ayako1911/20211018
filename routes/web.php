@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactsController;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,7 +31,8 @@ Route::post('/confirm', [ContactsController::class, 'confirm'])->name('confirm')
 Route::post('/process', [ContactsController::class, 'process'])->name('process');
 Route::get('/retrun_input',[ContactsController::class,'returnInput'])->name('return');
 Route::get('/complete', [ContactsController::class, 'complete'])->name('complete');
-Route::get('/search', [ContactsController::class, 'search'])->name('search');
-// Route::get('/search', [ContactsController::class, 'index'])->name('index');
+Route::get('/search', [ContactsController::class, 'index'])->name('index');
+Route::post('/search', [ContactsController::class, 'search'])->name('search');
+Route::post('/delete', [ContactsController::class, 'delete'])->name('delete');
 
 

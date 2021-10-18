@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="CSS/style.css">
   <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+  <link rel="stylesheet" href="css/create.css">
   <title>お問い合わせ</title>
 </head>
 <body>
@@ -13,16 +14,15 @@
   <div class="contact-form">
     <form method="post" action="confirm">
       @csrf
-      <table>
+      <div class="box_con">
+      <table class="formTable">
         <tr>
-          <th>お名前※</th>
-          <td><input type="text" name="lastname" value="{{ old('lastname') }}" /></td>
-          <td><input type="text" name="firstname" value="{{ old('firstname') }}" /></td>
+          <th>お名前<span>※</span></th>
+          <td><input type="text" name="lastname" value="{{ old('lastname') }}" /> <input type="text" name="firstname" value="{{ old('firstname') }}" /></td>
         </tr>
         <tr>
           <th></th>
-          <td>　例）山田</td>
-          <td>　太郎</td>
+          <td>　例）山田&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;太郎</td>
         </tr>
         <tr>
           <th></th>
@@ -30,8 +30,7 @@
             @if ($errors->has('lastname'))
              <p class="alert alert-danger">{{ $errors->first('lastname') }}</p>
             @endif
-          </td>
-          <td>
+
             @if ($errors->has('firstname'))
              <p class="alert alert-danger">{{ $errors->first('firstname') }}</p>
             @endif
@@ -40,7 +39,7 @@
         </tr>
 
         <tr>
-          <th>性別※</th>
+          <th>性別<span>※</span></th>
             <td>
               <label><input type="radio" name="gender" value="1" checked {{ old('like','1') == '1' ? 'checked' : '' }}>男</label>
               <label><input type="radio" name="gender" value="2" {{ old('gender') == '2' ? 'checked' : '' }}>女</label>
@@ -55,7 +54,7 @@
           </td>
         </tr>
         <tr>
-          <th>メールアドレス※</th>
+          <th>メールアドレス<span>※</span></th>
           <td><input type="email" name="email" value="{{ old('email') }}" /></td>
         </tr>
         <tr>
@@ -72,7 +71,7 @@
         </tr>
 
         <tr>
-          <th><label>郵便番号※</label></th>
+          <th><label>郵便番号<span>※</span></label></th>
           <td>〒<input id="foo" value="{{ old('zip11')}}" type="text" name="zip11" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');"></td>
         </tr>
         <script>
@@ -111,7 +110,7 @@
         </tr>
 
         <tr>
-          <th><label>住所※</label></th>
+          <th><label>住所<span>※</span></label></th>
           <td><input value="{{ old('addr11')}}" type="text" name="addr11" size="60" name="address"></td>
         </tr>
 
@@ -138,8 +137,8 @@
         </tr>
 
         <tr>
-          <th>ご意見※</th>
-          <td><textarea name="opinion">{{ old('opinion') }}</textarea></td>
+          <th>ご意見<span>※</span></th>
+          <td><textarea name="opinion" cols="50" rows="5">{{ old('opinion') }}</textarea></td>
         </tr>
          <tr>
           <th></th>

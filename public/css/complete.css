@@ -1,0 +1,80 @@
+/* /* リセットcss↓ */
+
+html {
+  overflow-y: scroll;
+}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+  margin: 0;
+  padding: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+  font-style: normal;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+caption,th {
+  text-align: left;
+}
+q:before,q:after {
+  content: '';
+}
+object,embed {
+  vertical-align: top;
+}
+hr,legend {
+  display: none;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size: 100%;
+}
+img,abbr,acronym,fieldset {
+  border: 0;
+}
+li {
+  list-style-type: none;
+}
+sup {
+  vertical-align: super;
+  font-size: 0.5em;
+}
+img {
+  vertical-align: top;
+}
+i {
+  font-style: normal;
+}
+
+/*----リセットcss*----/
+
+/*デザインcss↓*/
+
+p {
+  text-align: center;
+  margin: auto 0;
+  padding: 100px;
+}
+
+button{
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  position: relative;
+  padding: 5px 60px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: white;
+  border-radius: 0.5rem;
+  background-color: black;
+  display: block;
+  margin: 0 auto;
+}
